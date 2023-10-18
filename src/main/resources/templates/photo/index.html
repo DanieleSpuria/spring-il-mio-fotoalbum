@@ -12,7 +12,7 @@
 		
 		<h1>Fotoalbum</h1>
 		
-		<a th:href="@{/create-photo}">Aggiungi pizza</a>
+		<a th:href="@{/create-photo}">Aggiungi foto</a>
 		
 		<form method="get" accept="/">
 			<label for="search">Cerca:</label>
@@ -31,6 +31,16 @@
 				<a 
 					th:href="@{/edit-photo/{id} (id = *{id})}"
 				>Modifica</a>
+				
+				<form 
+					method="post"
+					th:action="@{/delete-photo/{id} (id = *{id})}"
+					class="d-inline"
+				>
+					<button 
+						type="submit"
+					>Elimina</button>
+				</form>
 			</li>
 		</ul>
 		

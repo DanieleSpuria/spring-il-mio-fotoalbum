@@ -132,6 +132,27 @@ public class PhotoController {
 	
 	
 	
+	@PostMapping("/delete-photo/{id}")
+	public String delete(
+				@PathVariable int id
+			) {
+		
+		Optional<Photo> optPhoto = photoServ.findById(id);
+		List<Category> categories = categoryServ.findAll();
+		Photo photo = optPhoto.get();
+		
+		for (Category category : categories) 
+			if (category.getPhotos().contains(photo))
+				category.getPhotos().remove(photo);
+		
+		photoServ.delete(photo);
+		
+		return "redirect:/";
+	}
+	
+	
+	
+	
 	private void listCategories(
 				Model model
 			) {
