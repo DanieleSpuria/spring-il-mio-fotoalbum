@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}"/>
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<title>Insert title here</title>
+</head>
+<body>
+
+	<main th:object="${photo}">
+		
+		<h2>[[ *{title} ]]</h2>
+		
+		<span>[[ *{visible} ]]</span>
+		
+		<img th:src="@{*{url}}">
+		
+		<p>[[ *{description} ]]</p>
+		
+		<ul>
+			<li 
+				th:each="category : ${photo.categories}"
+				th:object="${category}"
+			>
+				[[ *{name} ]]
+			</li>
+		</ul>
+		
+	</main>
+
+</body>
+</html>

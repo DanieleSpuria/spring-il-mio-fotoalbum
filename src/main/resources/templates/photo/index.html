@@ -22,7 +22,9 @@
 				th:each="photo : ${photos}"
 				th:object="${photo}"
 			>
-				[[*{title}]]
+				<a
+					th:href="@{/{id} (id = *{id})}"
+				>[[*{title}]]</a>
 			</li>
 		</ul>
 		

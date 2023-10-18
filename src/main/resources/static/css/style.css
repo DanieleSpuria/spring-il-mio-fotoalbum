@@ -2,3 +2,11 @@ body {
 	color: lightgreen;
 	background-color: darkslategray;
 }
+
+img {
+	width: 600px;
+}
+
+span {
+	display: block;
+}
