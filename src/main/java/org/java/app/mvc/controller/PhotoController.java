@@ -68,7 +68,7 @@ public class PhotoController {
 	
 	
 	
-	@GetMapping("/formPhoto")
+	@GetMapping("/create-photo")
 	public String create(
 				Model model
 			) {
@@ -79,7 +79,7 @@ public class PhotoController {
 		return "/photo/form";
 	}
 	
-	@PostMapping("/formPhoto")
+	@PostMapping("/create-photo")
 	public String store(
 				@Valid @ModelAttribute("photo") Photo formPhoto,
 				BindingResult bindingResult,
@@ -87,13 +87,55 @@ public class PhotoController {
 			) {
 		
 		if(bindingResult.hasErrors()) {
-			List<Category> categories = categoryServ.findAll();
-			model.addAttribute("categories", categories);
+			listCategories(model);
 			return "/photo/form";
 		}
 		
 		photoServ.save(formPhoto);
 		
-		return "redirect:/";
+		return "redirect:/" + formPhoto.getId();
+	}
+	
+	
+	
+	
+	@GetMapping("/edit-photo/{id}")
+	public String edit(
+				@PathVariable int id,
+				Model model
+			) {
+		
+		listCategories(model);
+		Optional<Photo> photo = photoServ.findById(id);
+		model.addAttribute("photo", photo.get());
+
+		return "/photo/form";
+	}
+	
+	@PostMapping("/edit-photo/{id}")
+	public String update(
+				@Valid @ModelAttribute("photo") Photo formPhoto,
+				BindingResult bindingResult,
+				Model model
+			) {
+		
+		if (bindingResult.hasErrors()) {
+			listCategories(model);
+			return "photo/form";
+		}
+		
+		photoServ.save(formPhoto);
+		
+		return "redirect:/" + formPhoto.getId();
+	}
+	
+	
+	
+	
+	private void listCategories(
+				Model model
+			) {
+		List<Category> categories = categoryServ.findAll();
+		model.addAttribute("categories", categories);
 	}
 }

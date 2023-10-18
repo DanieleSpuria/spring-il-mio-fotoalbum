@@ -44,7 +44,7 @@
 				<label for="visible">Visibile</label>
 				<input type="checkbox" name="visible" th:field="*{visible}">		
 			</div>
-			
+	
 			<div 
 				th:each="category : ${categories}"
 				th:object="${category}"
@@ -58,7 +58,10 @@
 				<label th:for="*{id}">[[ *{name} ]]</label>
 			</div>
 			
-			<button type="submit">Crea</button>
+			<button 
+				type="submit" 
+				th:text="${photo.id > 0 ? 'Modifica' : 'Crea'}"
+			></button>
 			
 		</form>
 		

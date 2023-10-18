@@ -113,6 +113,7 @@ public class Photo {
 	      + getTitle() + "\n"
 	      + getDescription() + "\n"
 	      + getUrl() + "\n"
-	      +getCategories();
+	      + isVisible() + "\n"
+	      + getCategories();
 	  }
 }
