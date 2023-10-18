@@ -96,6 +96,6 @@ public class Photo {
 	    return "[ " + getId() + " ]\n"
 	      + getTitle() + "\n"
 	      + getDescription() + "\n"
-	      + getUrl();
+	      + getUrl() + "\n";
 	  }
 }
