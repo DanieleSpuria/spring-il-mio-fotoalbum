@@ -1,5 +1,8 @@
 package org.java.app.db.pojo;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.hibernate.validator.constraints.Length;
 
 import jakarta.persistence.Column;
@@ -7,6 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.NotNull;
 
 
@@ -33,16 +37,22 @@ public class Photo {
 	@Column(nullable = false, columnDefinition = "boolean default false")
 	private boolean visible;
 	
+	@ManyToMany
+	private List<Category> categories;
 	
 	
 	
+	
+
+
 	public Photo() {}
 	
-	public Photo(String title, String description, String url, boolean visible) {
+	public Photo(String title, String description, String url, boolean visible, Category...categories) {
 	  setTitle(title);
 	  setDescription(description);
 	  setUrl(url);
 	  setVisible(visible);
+	  setCategories(Arrays.asList(categories));
 	 }
 
   
@@ -86,6 +96,14 @@ public class Photo {
 	
 	public void setVisible(boolean visible) {
 		this.visible = visible;
+	}
+	
+	public List<Category> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(List<Category> categories) {
+		this.categories = categories;
 	}
 
 	

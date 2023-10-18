@@ -1,10 +1,13 @@
 package org.java.app.db.pojo;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.NotNull;
 
 
@@ -20,6 +23,9 @@ public class Category {
 	@Column(nullable = false)
 	@NotNull
 	private String name;
+	
+	@ManyToMany(mappedBy = "categories")
+	private List<Photo> photos;
 	
 	
 	
@@ -48,6 +54,17 @@ public class Category {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public List<Photo> getPhotos() {
+		return photos;
+	}
+
+	public void setPhotos(List<Photo> photos) {
+		this.photos = photos;
+	}
+	
+	
+	
 	
 	@Override
 	public String toString() {

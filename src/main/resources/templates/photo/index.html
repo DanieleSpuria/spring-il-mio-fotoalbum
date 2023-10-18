@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}"/>
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<title>Fotoalbum</title>
+</head>
+<body>
+
+	<main>
+		
+		<h1>Fotoalbum</h1>
+		
+		<form method="get" accept="/">
+			<label for="search">Cerca:</label>
+			<input name="search" th:value="${search}">			
+		</form>
+		
+		<ul>
+			<li 
+				th:each="photo : ${photos}"
+				th:object="${photo}"
+			>
+				[[*{title}]]
+			</li>
+		</ul>
+		
+	</main>
+
+</body>
+</html>
