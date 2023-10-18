@@ -112,6 +112,7 @@ public class Photo {
 	    return "[ " + getId() + " ]\n"
 	      + getTitle() + "\n"
 	      + getDescription() + "\n"
-	      + getUrl() + "\n";
+	      + getUrl() + "\n"
+	      +getCategories();
 	  }
 }

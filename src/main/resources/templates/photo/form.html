@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}"/>
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<title>Insert title here</title>
+</head>
+<body>
+
+	<main>
+		
+		<h2>Aggiungi foto</h2>
+		
+		<form
+			method="post"
+			th:object="${photo}"
+		>
+			
+			<div>
+				<label for="title">Titolo</label>
+				<input type="text" name="title" th:field="*{title}">
+
+				<ul th:if="${#fields.hasErrors('title')}">
+					<li th:each="err : ${#fields.errors('title')}" th:text="${err}"></li>
+				</ul>
+			</div>
+			
+			<div>
+				<label for="description">Descrizione</label>
+				<input type="text" name="description" th:field="*{description}">		
+				
+				<ul th:if="${#fields.hasErrors('description')}">
+					<li th:each="err : ${#fields.errors('description')}" th:text="${err}"></li>
+				</ul>		
+			</div>
+			
+			<div>
+				<label for="url">Url</label>
+				<input type="text" name="url" th:field="*{url}">				
+			</div>
+			
+			<div>
+				<label for="visible">Visibile</label>
+				<input type="checkbox" name="visible" th:field="*{visible}">		
+			</div>
+			
+			<div 
+				th:each="category : ${categories}"
+				th:object="${category}"
+			>
+				<input
+					type="checkbox"
+					th:id="*{id}"
+					th:value="*{id}"
+					th:field="${photo.categories}"
+				>
+				<label th:for="*{id}">[[ *{name} ]]</label>
+			</div>
+			
+			<button type="submit">Crea</button>
+			
+		</form>
+		
+	</main>
+
+</body>
+</html>
