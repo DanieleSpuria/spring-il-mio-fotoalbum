@@ -26,7 +26,7 @@ public class Category {
 	
 	@ManyToMany(mappedBy = "categories")
 	private List<Photo> photos;
-	
+
 	
 	
 	

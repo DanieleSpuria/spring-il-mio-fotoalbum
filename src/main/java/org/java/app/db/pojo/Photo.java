@@ -39,15 +39,13 @@ public class Photo {
 	
 	@ManyToMany
 	private List<Category> categories;
-	
-	
-	
-	
+
+
 
 
 	public Photo() {}
 	
-	public Photo(String title, String description, String url, boolean visible, Category...categories) {
+	public Photo(String title, String description, String url, boolean visible, Category... categories) {
 	  setTitle(title);
 	  setDescription(description);
 	  setUrl(url);
