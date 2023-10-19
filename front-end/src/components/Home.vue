@@ -1,15 +1,17 @@
 <template>
 
-  <div>
+  <main>
 
     <h1 class="text-center border border-dark rounded">FotoAlbum</h1>
 
-    <div class="text-center d-flex flex-column align-items-center border border-dark rounded mb-2 p-2">
+    <router-link to="/contact">Contattami</router-link> 
+
+    <div class="text-center d-flex flex-column align-items-center mb-2 p-2">
       <label>Cerca una foto:</label>
       <input type="text" v-model="search" @keyup="searchPhotos()" class="form-control w-25">
     </div>
 
-    <ul class="d-flex flex-wrap border border-dark rounded p-3">
+    <ul class="d-flex flex-wrap border p-3">
       <li
         v-for="photo in photos"
         :key="photo.id"
@@ -20,7 +22,7 @@
       </li>
     </ul>
 
-  </div>
+  </main>
 
 </template>
 

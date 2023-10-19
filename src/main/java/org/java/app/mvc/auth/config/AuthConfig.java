@@ -22,6 +22,7 @@ public class AuthConfig {
 			http.csrf().disable()
 				.authorizeHttpRequests()			
 				.requestMatchers("/api/photos/**").permitAll()
+				.requestMatchers("/api/emails/**").permitAll()
 				.requestMatchers("/**").hasAuthority("ADMIN")
 		        .and().formLogin().defaultSuccessUrl("/")
 		        .and().logout();

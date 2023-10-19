@@ -1,10 +1,10 @@
 <template>
 
-  <main class="container d-flex flex-column align-items-center p-5">
+  <div class="container d-flex flex-column align-items-center p-5">
   
     <RouterView />
 
-  </main>
+  </div>
   
 </template>
 
