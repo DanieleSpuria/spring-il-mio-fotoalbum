@@ -91,7 +91,13 @@ public class PhotoController {
 			return "/photo/form";
 		}
 		
-		photoServ.save(formPhoto);
+		try {		
+			photoServ.save(formPhoto);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			listCategories(model);
+			return "photo/form";
+		}
 		
 		return "redirect:/" + formPhoto.getId();
 	}
@@ -124,7 +130,14 @@ public class PhotoController {
 			return "photo/form";
 		}
 		
-		photoServ.save(formPhoto);
+		try {		
+			photoServ.save(formPhoto);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			model.addAttribute("photo", formPhoto);
+			listCategories(model);
+			return "photo/form";
+		}
 		
 		return "redirect:/" + formPhoto.getId();
 	}
@@ -143,7 +156,7 @@ public class PhotoController {
 		
 		for (Category category : categories) 
 			if (category.getPhotos().contains(photo))
-				category.getPhotos().remove(photo);
+				category.delPhoto(photo);
 		
 		photoServ.delete(photo);
 		

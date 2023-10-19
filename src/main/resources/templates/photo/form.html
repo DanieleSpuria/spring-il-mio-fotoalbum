@@ -10,7 +10,9 @@
 
 	<main>
 		
-		<h2>Aggiungi foto</h2>
+		<h2
+			th:text="${photo.id > 0 ? 'Modifica foto' : 'Aggiungi foto'}"
+		></h2>
 		
 		<form
 			method="post"
@@ -42,9 +44,9 @@
 			
 			<div>
 				<label for="visible">Visibile</label>
-				<input type="checkbox" name="visible" th:field="*{visible}">		
+				<input type="checkbox" name="visible" th:field="*{visible}">	
 			</div>
-	
+
 			<div 
 				th:each="category : ${categories}"
 				th:object="${category}"
@@ -55,7 +57,9 @@
 					th:value="*{id}"
 					th:field="${photo.categories}"
 				>
-				<label th:for="*{id}">[[ *{name} ]]</label>
+				<label 
+					th:for="*{id}"
+				>[[ *{name} ]]</label>
 			</div>
 			
 			<button 

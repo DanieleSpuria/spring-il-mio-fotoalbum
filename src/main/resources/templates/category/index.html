@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}"/>
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<title>Categorie</title>
+</head>
+<body>
+
+	<main>
+		
+		<h2>Categorie</h2>
+		
+		<a th:href="@{/}">Home</a>
+		<a th:href="@{/categories/create-category}">Aggiungi categoria</a>
+		
+		<ul>
+			<li 
+				th:each="category : ${categories}"
+				th:object="${category}"
+			>
+				<span class="d-inline">[[ *{name} ]]</span>
+				
+				<form 
+					method="post"
+					th:action="@{/categories/delete/{id} (id = *{id})}"
+					class="d-inline"
+				>
+					<button 
+						type="submit"
+					>Elimina</button>
+				</form>
+			</li>
+		</ul>
+		
+	</main>
+
+</body>
+</html>

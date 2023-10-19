@@ -23,7 +23,7 @@ public class Photo {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	@NotNull
 	@Length(min = 3, max = 255)
 	private String title;
@@ -102,6 +102,14 @@ public class Photo {
 
 	public void setCategories(List<Category> categories) {
 		this.categories = categories;
+	}
+	
+	public void addCategory(Category category) {
+		getCategories().add(category);
+	}
+	
+	public void delCategory(Category category) {
+		getCategories().remove(category);
 	}
 
 	

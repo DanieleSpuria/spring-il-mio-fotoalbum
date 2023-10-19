@@ -9,10 +9,16 @@
 <body>
 
 	<main>
-		
+
+		<a 
+			sec:authorize="hasAnyAuthority('ADMIN')"
+			href="/logout"
+		>Logout</a>
+			
 		<h1>Fotoalbum</h1>
 		
 		<a th:href="@{/create-photo}">Aggiungi foto</a>
+		<a th:href="@{/categories}">Categorie</a>
 		
 		<form method="get" accept="/">
 			<label for="search">Cerca:</label>

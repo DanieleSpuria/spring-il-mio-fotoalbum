@@ -10,3 +10,7 @@ img {
 span {
 	display: block;
 }
+
+a {
+	color:lightgreen;
+}

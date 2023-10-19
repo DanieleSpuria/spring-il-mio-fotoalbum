@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}"/>
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<title>Insert title here</title>
+</head>
+<body>
+	
+	<main>
+		
+		<h2>Crea una nuova categoria</h2>
+		
+		<form
+			method="post"
+			th:object="${category}"
+		>
+			
+			<div>
+				<label for="name">Nome</label>
+				<input type="text" name="name" th:field="*{name}">
+				
+				<ul th:if="${#fields.hasErrors('name')}">
+				</ul>
+					<li th:each="err : ${#fields.errors('name')}" th:text="${err}"></li>
+			</div>
+
+			<span class="py-3">Seleziona foto alle quali aggiungere la nuova categoria:</span>
+
+			<div
+				th:each="photo : ${photos}"
+				th:object="${photo}"
+			>
+
+				<input
+					type="checkbox"
+					th:id="*{id}"
+					th:value="*{id}"
+					th:field="${category.photos}"
+				>
+				<label
+					th:for="*{id}"
+				>[[*{title}]]</label>
+
+			</div>
+
+			<button
+				type="submit"
+			>Crea</button>
+			
+		</form>
+		
+	</main>
+
+</body>
+</html>

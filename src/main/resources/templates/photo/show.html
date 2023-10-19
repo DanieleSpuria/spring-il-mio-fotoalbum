@@ -35,6 +35,15 @@
 			th:href="@{/edit-photo/{id} (id = *{id})}"
 		>Modifica</a>
 		
+		<form 
+			method="post"
+			th:action="@{/delete-photo/{id} (id = *{id})}"
+			class="d-inline"
+		>
+			<button 
+				type="submit"
+			>Elimina</button>
+		</form>
 	</main>
 
 </body>
