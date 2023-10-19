@@ -1,5 +1,6 @@
 package org.java.app.api;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.java.app.db.pojo.Photo;
@@ -30,12 +31,22 @@ public class PhotoRestController {
 	){
 		
 		List<Photo> photos = null;
+		List<Photo> photosVisible = new ArrayList<Photo>();
 
-		if (search == null)
+		if (search == null) {
 			photos = photoServ.findAll();
-		else
-			photos = photoServ.findByTitle(search);
 		
-		return new ResponseEntity<List<Photo>>(photos, HttpStatus.OK);
+			for (Photo photo : photos) 
+				if (photo.isVisible())
+					photosVisible.add(photo);
+		} else {
+			photos = photoServ.findByTitle(search);
+			
+			for (Photo photo : photos) 
+				if (photo.isVisible())
+					photosVisible.add(photo);
+		}
+		
+		return new ResponseEntity<List<Photo>>(photosVisible, HttpStatus.OK);
 	}
 }
