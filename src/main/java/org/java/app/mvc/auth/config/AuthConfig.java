@@ -20,8 +20,9 @@ public class AuthConfig {
 		throws Exception {
 
 			http.csrf().disable()
-				.authorizeHttpRequests()
-		        .requestMatchers("/**").hasAuthority("ADMIN")
+				.authorizeHttpRequests()			
+				.requestMatchers("/api/photos/**").permitAll()
+				.requestMatchers("/**").hasAuthority("ADMIN")
 		        .and().formLogin().defaultSuccessUrl("/")
 		        .and().logout();
 
