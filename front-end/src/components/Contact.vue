@@ -4,29 +4,35 @@
 
   <router-link to="/">Home</router-link>
 
+  <span v-if="send">{{ msg }}</span>
+
   <form
     @submit.prevent="sendMessage()"
+    v-if="viewForm"
   >
-
-    <span v-if="sendS">Dove vai</span>
 
     <div class="text-center d-flex flex-column align-items-start mb-2 p-2">
       <label>Email</label>
       <input type="email" v-model="newMessage.email" name="email" class="form-control">
 
-      <span v-if=controlMail()>Campo obbligatorio</span>
+      <span v-if=controlMail()>Email obbligatoria</span>
     </div>
 
     <div class="text-center d-flex flex-column align-items-start mb-2 p-2">
       <label>Messaggio</label>
       <textarea class="form-control" v-model="newMessage.text"  name="text" rows="5"></textarea>
 
-      <span v-if=controlText()>Campo obbligatorio</span>
+      <span v-if=controlText()>Messaggio obbligatorio</span>
     </div>
 
     <button type="submit">Invia</button>
 
   </form>
+
+  <button
+    v-if="rel"
+    @click="reload"
+  >Invia un nuovo messaggio</button>
 
 </template>
 
@@ -35,47 +41,59 @@
 
 <script setup>
 
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import { router } from '../router/router';
 import axios from 'axios';
 
+
+
+
 const apiEmails = "http://localhost:8080/api/emails";
-let sendE = ref(false);
-let sendT = ref(false);
-let sendS = ref(false);
+
+let viewForm = ref(true);
+let send     = ref(false);
+let rel      = ref(false);
+let msg      = ref('');
 
 const message = {
   email: "",
   text: ""
 }
+const newMessage = ref({ ...message });
 
-const newMessage = ref(message);
+
+
 
 function sendMessage() {
 
-  if (!sendE.value && !sendT.value) {
+  if (!controlMail() && !controlText()) {
     axios.post(apiEmails, newMessage.value).then(result => {
-      newMessage.value = message;
-      sendE.value = false;
-      sendT.value = false;
-      sendS.value = false;
-    })
+      viewForm.value = false;
+      rel.value = true;
+      msg.value = 'Messaggio inviato correttamente.';
+    }).catch(error => {
+      console.log(error.data);
+    }) 
   } else {
-    sendS.value = true;
+    send.value = true;
+    msg.value = 'Devi compilare entrambi i campi.';
   }
 }
 
 function controlMail() {
-  if (newMessage.value.email.length == 0) sendE.value = true;
-  else sendE.value = false;
-
-  return sendE.value;
+  return newMessage.value.email.length == 0;
 }
 
 function controlText() {
-  if (newMessage.value.text.length == 0) sendT.value = true;
-  else sendT.value = false;
+  return newMessage.value.text.length == 0;
+}
 
-  return sendT.value;
+function reload() {
+  send.value = false;
+  rel.value = false;
+  viewForm.value = true;
+  newMessage.value = {...message};
+  router.push({ name: 'contact' })
 }
 
 </script>

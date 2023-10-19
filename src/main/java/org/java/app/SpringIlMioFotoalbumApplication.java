@@ -90,8 +90,8 @@ public class SpringIlMioFotoalbumApplication implements CommandLineRunner {
 		
 		
 		
-		Email email1 = new Email("ciao", "filippo@filippo.fil");
-		Email email2 = new Email("salve", "maria@maria.mar");
+		Email email1 = new Email("filippo@filippo.fil", "ciao");
+		Email email2 = new Email("maria@maria.mar", "salve");
 		
 		emailServ.save(email1);
 		emailServ.save(email2);

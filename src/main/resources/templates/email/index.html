@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}"/>
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<title>Email</title>
+</head>
+<body>
+
+	<main>
+		
+		<a
+			th:href="@{/}"
+		>Home</a>
+		
+		<h2>Email ricevute</h2>
+		
+		<ul>
+			<li 
+				th:each="email : ${emails}"
+				th:object="${email}"
+			>
+				<span>Da: [[ *{email} ]]</span>
+				<span>[[ *{text} ]]</span>
+			</li>
+		</ul>
+		
+	</main>
+
+</body>
+</html>
