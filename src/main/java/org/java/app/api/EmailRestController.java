@@ -1,18 +1,25 @@
 package org.java.app.api;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.java.app.api.email.db.pojo.Email;
 import org.java.app.api.email.db.serv.EmailServ;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import jakarta.validation.Valid;
 
 
 
@@ -36,9 +43,26 @@ public class EmailRestController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Email> create(
-				@RequestBody Email formEmail
+	public ResponseEntity<?> create(
+				@Valid @RequestBody Email formEmail,
+				BindingResult bindingResult
 			) {
+		
+		List<String> errors = new ArrayList<>(); 
+		
+		Map<String, String> errMap = new HashMap<>();
+		
+		if (bindingResult.hasErrors()) {
+		    for (FieldError fieldError : bindingResult.getFieldErrors()) {
+		       
+		    	errMap.put(fieldError.getField(), fieldError.getDefaultMessage());
+		    	
+		        String error = "Errore nel campo " + fieldError.getField() + ": " + fieldError.getDefaultMessage();
+		        errors.add(error);
+		        
+		        return new ResponseEntity<>(errMap, HttpStatus.BAD_REQUEST);
+		    }
+		}
 		
 		try {
 			emailServ.save(formEmail);			
@@ -46,7 +70,7 @@ public class EmailRestController {
 			System.err.println(e.getMessage());
 		}
 		
-		return new ResponseEntity<>(formEmail, HttpStatus.OK);
+		return new ResponseEntity<>(formEmail.getEmail(), HttpStatus.OK);
 	}
 	
 }

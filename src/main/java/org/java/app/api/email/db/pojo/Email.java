@@ -1,5 +1,7 @@
 package org.java.app.api.email.db.pojo;
 
+import org.hibernate.validator.constraints.Length;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,6 +22,7 @@ public class Email {
 	
 	@Column(nullable = false)
 	@NotNull
+	@Length(min = 10)
 	private String text;
 	
 	

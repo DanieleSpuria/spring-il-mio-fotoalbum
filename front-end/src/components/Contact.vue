@@ -23,6 +23,7 @@
       <textarea class="form-control" v-model="newMessage.text"  name="text" rows="5"></textarea>
 
       <span v-if=controlText()>Messaggio obbligatorio</span>
+      <span v-if="serverErrors.text != null">{{ serverErrors.text }}</span>
     </div>
 
     <button type="submit">Invia</button>
@@ -61,18 +62,25 @@ const message = {
 }
 const newMessage = ref({ ...message });
 
+const serverErrors = ref([]);
+
 
 
 
 function sendMessage() {
 
+  serverErrors.value = [];
+  send.value = false;
+
   if (!controlMail() && !controlText()) {
     axios.post(apiEmails, newMessage.value).then(result => {
       viewForm.value = false;
       rel.value = true;
+      send.value = true;
       msg.value = 'Messaggio inviato correttamente.';
     }).catch(error => {
-      console.log(error.data);
+      serverErrors.value = error.response.data;
+      console.log(serverErrors.value);
     }) 
   } else {
     send.value = true;
