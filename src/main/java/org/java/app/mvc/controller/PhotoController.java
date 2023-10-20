@@ -79,6 +79,11 @@ public class PhotoController {
 			) {
 		
 		Integer authId = userServ.authId();
+		List<Photo> allPhotos = photoServ.findAll();
+		
+		if (allPhotos.size() < id)
+			return "redirect:/"; 
+		
 		Photo photo = photoServ.findById(id).get();
 
 		if (photo.getUser().getId() == authId) {
