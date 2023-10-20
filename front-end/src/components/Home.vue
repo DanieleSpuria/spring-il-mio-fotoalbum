@@ -15,9 +15,10 @@
       <li
         v-for="photo in photos"
         :key="photo.id"
-        class="d-flex flex-column m-2"
+        class="d-flex flex-column border border-dark m-2"
       >
         <img :src="photo.url" alt="photo.title">
+        <span>{{ photo.user.username }}</span>
         <span>{{ photo.title }}</span>
       </li>
     </ul>
@@ -42,6 +43,7 @@
     axios.get(apiPhotos).then(result => {
       const data = result.data;  
       photos.value = data;
+      console.log(photos.value);
     })
   }
 
