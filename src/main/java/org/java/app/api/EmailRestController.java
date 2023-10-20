@@ -1,6 +1,5 @@
 package org.java.app.api;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,18 +47,13 @@ public class EmailRestController {
 				BindingResult bindingResult
 			) {
 		
-		List<String> errors = new ArrayList<>(); 
-		
 		Map<String, String> errMap = new HashMap<>();
 		
 		if (bindingResult.hasErrors()) {
 		    for (FieldError fieldError : bindingResult.getFieldErrors()) {
 		       
 		    	errMap.put(fieldError.getField(), fieldError.getDefaultMessage());
-		    	
-		        String error = "Errore nel campo " + fieldError.getField() + ": " + fieldError.getDefaultMessage();
-		        errors.add(error);
-		        
+		    		        
 		        return new ResponseEntity<>(errMap, HttpStatus.BAD_REQUEST);
 		    }
 		}

@@ -10,10 +10,9 @@
 
 	<main>
 
-		<a 
-			sec:authorize="hasAnyAuthority('ADMIN')"
-			href="/logout"
+		<a href="/logout"
 		>Logout</a>
+		<span>[[ ${user.username} ]]</span>
 			
 		<h1>Fotoalbum</h1>
 		

@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.hibernate.validator.constraints.Length;
+import org.java.app.mvc.auth.db.pojo.User;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -13,6 +14,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 
 
@@ -42,21 +44,25 @@ public class Photo {
 	@ManyToMany
 	@JsonManagedReference
 	private List<Category> categories;
+	
+	@ManyToOne
+	private User user;
 
 
 
 
 	public Photo() {}
 	
-	public Photo(String title, String description, String url, boolean visible, Category... categories) {
+	public Photo(String title, String description, String url, boolean visible, User user, Category... categories) {
 	  setTitle(title);
 	  setDescription(description);
 	  setUrl(url);
 	  setVisible(visible);
+	  setUser(user);
 	  setCategories(Arrays.asList(categories));
 	 }
 
-  
+	
   
   
 	public int getId() {
@@ -113,6 +119,14 @@ public class Photo {
 	
 	public void delCategory(Category category) {
 		getCategories().remove(category);
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	

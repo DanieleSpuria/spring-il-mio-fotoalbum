@@ -46,6 +46,26 @@ public class SpringIlMioFotoalbumApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		
+		Role admin = new Role("ADMIN");
+		roleServ.save(admin);
+		
+		final String passUser1 = new BCryptPasswordEncoder().encode("12345678");
+		final String passUser2 = new BCryptPasswordEncoder().encode("12345678");
+		final String passUser3 = new BCryptPasswordEncoder().encode("12345678");
+		final String passUser4 = new BCryptPasswordEncoder().encode("12345678");
+		
+		User user1 = new User("user1", passUser1, admin);
+		User user2 = new User("user2", passUser2, admin);
+		User user3 = new User("user3", passUser3, admin);
+		User user4 = new User("user4", passUser4, admin);
+		userServ.save(user1);
+		userServ.save(user2);
+		userServ.save(user3);
+		userServ.save(user4);
+		
+		
+		
 			
 		Category natura       = new Category("Natura");
 		Category astratte     = new Category("Astratte");
@@ -59,40 +79,34 @@ public class SpringIlMioFotoalbumApplication implements CommandLineRunner {
 		
 		List<Photo> photos = Arrays.asList(
 				
-					new Photo("foto1", "descrizione1", "http://www.pixolo.it/wp-content/uploads/2012/08/mountainlakeandsunset2560x1440wallpaper5576.jpg", true, natura),
-					new Photo("foto2", "descrizione2", "https://sfondo.info/i/original/d/1/3/31058.jpg", true, natura),
-					new Photo("foto3", "descrizione3", "https://sfondo.info/i/original/9/e/5/14459.jpg", false, natura),
-					new Photo("foto4", "descrizione4", "https://sfondo.info/i/original/1/b/3/83540.jpg", false, natura),
-					new Photo("foto5", "descrizione5", "https://www.pomodorozen.com/wp-content/uploads/2016/06/Sfondi-desktop-natura-79.jpg", true, natura),
-					new Photo("foto6", "descrizione6", "http://www.pixolo.it/wp-content/uploads/2012/08/superbnaturecorner2560x1440wallpaper6773.jpg", true, natura),
-					new Photo("foto7", "descrizione7", "https://www.pixelstalk.net/wp-content/uploads/2016/03/Animal-HD-wallpaper-background-1920x1080.jpg", true, animali, natura),
-					new Photo("foto8", "descrizione8", "https://www.pixelstalk.net/wp-content/uploads/2016/03/Wild-Animals-Wallpaper-HD.jpg", true, animali, natura),
-					new Photo("foto9", "descrizione9", "https://wallup.net/wp-content/uploads/2016/01/202352-animals-macaws-nature-closeup-birds-parrot.jpg", false, animali, natura),
-					new Photo("foto10", "descrizione10", "https://wallup.net/wp-content/uploads/2016/01/262485-animals-nature-fox-wildlife-snow.jpg", true, animali, natura),
-					new Photo("foto11", "descrizione11", "http://www.sfondifree.it/sfondihd/wp-content/uploads/2013/01/Sfondi-3D-per-desktop-immagini-astratte.jpg", false, astratte),
-					new Photo("foto12", "descrizione12", "https://sfondo.info/i/original/9/f/3/67231.jpg", true, astratte),
-					new Photo("foto13", "descrizione13", "https://sfondo.info/i/original/4/4/b/87728.jpg", false, astratte),
-					new Photo("foto14", "descrizione14", "https://sfondo.info/i/original/b/4/4/5808.jpg", true, astratte),
-					new Photo("foto15", "descrizione15", "https://www.wallpaperup.com/uploads/wallpapers/2015/04/24/670127/5df39eb0052b6aaf6b5934523d3c4a04.jpg", true, astronomiche, natura),
-					new Photo("foto16", "descrizione16", "https://www.passioneastronomia.it/wp-content/uploads/2020/08/helix_24X720_8_agosto_big_dec-scaled.jpg", true, astronomiche, natura),
-					new Photo("foto17", "descrizione17", "https://www.wallpaperup.com/uploads/wallpapers/2015/04/24/670141/ff0f8b15383aeca6a94c3f503b30e51b.jpg", true, astronomiche, natura)
+					new Photo("foto1", "descrizione1", "http://www.pixolo.it/wp-content/uploads/2012/08/mountainlakeandsunset2560x1440wallpaper5576.jpg", false, user1, natura),
+					new Photo("foto2", "descrizione2", "https://sfondo.info/i/original/d/1/3/31058.jpg", true, user1, natura),
+					new Photo("foto3", "descrizione3", "https://sfondo.info/i/original/9/e/5/14459.jpg", false, user2, natura),
+					new Photo("foto4", "descrizione4", "https://sfondo.info/i/original/1/b/3/83540.jpg", false, user3, natura),
+					new Photo("foto5", "descrizione5", "https://www.pomodorozen.com/wp-content/uploads/2016/06/Sfondi-desktop-natura-79.jpg", true, user4, natura),
+					new Photo("foto6", "descrizione6", "http://www.pixolo.it/wp-content/uploads/2012/08/superbnaturecorner2560x1440wallpaper6773.jpg", true, user4, natura),
+					new Photo("foto7", "descrizione7", "https://www.pixelstalk.net/wp-content/uploads/2016/03/Animal-HD-wallpaper-background-1920x1080.jpg", true, user1, animali,  natura),
+					new Photo("foto8", "descrizione8", "https://www.pixelstalk.net/wp-content/uploads/2016/03/Wild-Animals-Wallpaper-HD.jpg", true, user2, animali, natura),
+					new Photo("foto9", "descrizione9", "https://wallup.net/wp-content/uploads/2016/01/202352-animals-macaws-nature-closeup-birds-parrot.jpg", false, user2, animali, natura),
+					new Photo("foto10", "descrizione10", "https://wallup.net/wp-content/uploads/2016/01/262485-animals-nature-fox-wildlife-snow.jpg", true, user4, animali, natura),
+					new Photo("foto11", "descrizione11", "http://www.sfondifree.it/sfondihd/wp-content/uploads/2013/01/Sfondi-3D-per-desktop-immagini-astratte.jpg", false, user2, astratte),
+					new Photo("foto12", "descrizione12", "https://sfondo.info/i/original/9/f/3/67231.jpg", true, user3, astratte),
+					new Photo("foto13", "descrizione13", "https://sfondo.info/i/original/4/4/b/87728.jpg", false, user1, astratte),
+					new Photo("foto14", "descrizione14", "https://sfondo.info/i/original/b/4/4/5808.jpg", true, user3, astratte),
+					new Photo("foto15", "descrizione15", "https://www.wallpaperup.com/uploads/wallpapers/2015/04/24/670127/5df39eb0052b6aaf6b5934523d3c4a04.jpg", true, user2, astronomiche, natura),
+					new Photo("foto16", "descrizione16", "https://www.passioneastronomia.it/wp-content/uploads/2020/08/helix_24X720_8_agosto_big_dec-scaled.jpg", true, user4, astronomiche, natura),
+					new Photo("foto17", "descrizione17", "https://www.wallpaperup.com/uploads/wallpapers/2015/04/24/670141/ff0f8b15383aeca6a94c3f503b30e51b.jpg", true, user1, astronomiche, natura)
 					
 		);
 				
 		for (Photo photo : photos) 
 			photoServ.save(photo);
 	
-		Role admin = new Role("ADMIN");
-		roleServ.save(admin);
-		final String adminPass = new BCryptPasswordEncoder().encode("12345678");
-		User userAdmin = new User("admin", adminPass, admin);
-		userServ.save(userAdmin);
 		
 		
 		
 		Email email1 = new Email("filippo@filippo.fil", "ciao complimenti alla mamma");
 		Email email2 = new Email("maria@maria.mar", "salve e buonasera");
-		
 		emailServ.save(email1);
 		emailServ.save(email2);
 

@@ -1,12 +1,15 @@
 package org.java.app.mvc.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.java.app.db.pojo.Category;
 import org.java.app.db.pojo.Photo;
 import org.java.app.db.serv.CategoryServ;
 import org.java.app.db.serv.PhotoServ;
+import org.java.app.mvc.auth.db.serv.UserServ;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +34,9 @@ public class PhotoController {
 	@Autowired
 	private CategoryServ categoryServ;
 	
+	@Autowired
+	private UserServ userServ;
+	
 	
 	
 	
@@ -40,12 +46,25 @@ public class PhotoController {
 				Model model
 			) {
 		
-		List<Photo> photos = null;
+		Integer authId = userServ.authId();
+		List<Photo> allPhotos = photoServ.findAll();
+		List<Photo> photos = new ArrayList<Photo>();
 		
-		photos = search == null ? photoServ.findAll() : photoServ.findByTitle(search);
+		photos = allPhotos.stream()
+					.filter(photo -> photo.getUser().getId() == authId)
+					.toList();
+				
+		if (search == null)
+			model.addAttribute("photos", photos);
+		else {	
+			photos = photos.stream()
+                	.filter(photo -> photo.getTitle().contains(search))
+                	.collect(Collectors.toList());
+			model.addAttribute("photos", photos);
+		}
 		
-		model.addAttribute("photos", photos);
 		model.addAttribute("search", search);
+		model.addAttribute("user", userServ.auth());
 		
 		return "photo/index";
 	}
@@ -92,6 +111,7 @@ public class PhotoController {
 		}
 		
 		try {		
+			formPhoto.setUser(userServ.auth());
 			photoServ.save(formPhoto);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -131,6 +151,7 @@ public class PhotoController {
 		}
 		
 		try {		
+			formPhoto.setUser(userServ.auth());
 			photoServ.save(formPhoto);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
