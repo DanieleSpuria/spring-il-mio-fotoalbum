@@ -78,10 +78,14 @@ public class PhotoController {
 				Model model
 			) {
 		
-		Optional<Photo> photo = photoServ.findById(id);
-		model.addAttribute("photo", photo.get());
-		
-		return "photo/show";
+		Integer authId = userServ.authId();
+		Photo photo = photoServ.findById(id).get();
+
+		if (photo.getUser().getId() == authId) {
+			model.addAttribute("photo", photo);
+			return "photo/show";
+		} else 
+			return "redirect:/";
 	}
 	
 	

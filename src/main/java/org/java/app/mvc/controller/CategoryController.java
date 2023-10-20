@@ -1,5 +1,6 @@
 package org.java.app.mvc.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +8,7 @@ import org.java.app.db.pojo.Category;
 import org.java.app.db.pojo.Photo;
 import org.java.app.db.serv.CategoryServ;
 import org.java.app.db.serv.PhotoServ;
+import org.java.app.mvc.auth.db.serv.UserServ;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +33,9 @@ public class CategoryController {
 	@Autowired
 	private PhotoServ photoServ;
 	
+	@Autowired
+	private UserServ userServ;
+	
 	
 	
 
@@ -53,7 +58,14 @@ public class CategoryController {
 				Model model
 			) {
 		
-		List<Photo> photos = photoServ.findAll();
+		Integer authId = userServ.authId();
+		List<Photo> allPhotos = photoServ.findAll();
+		List<Photo> photos = new ArrayList<Photo>();
+		
+		photos = allPhotos.stream()
+				.filter(photo -> photo.getUser().getId() == authId)
+				.toList();
+		
 		model.addAttribute("photos", photos);
 		model.addAttribute("category", new Category());
 		
