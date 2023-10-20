@@ -46,6 +46,7 @@ public class Photo {
 	private List<Category> categories;
 	
 	@ManyToOne
+	@JsonManagedReference
 	private User user;
 
 

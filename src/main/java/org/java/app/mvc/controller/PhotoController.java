@@ -84,7 +84,7 @@ public class PhotoController {
 		if (photo.getUser().getId() == authId) {
 			model.addAttribute("photo", photo);
 			return "photo/show";
-		} else 
+		} else
 			return "redirect:/";
 	}
 	
